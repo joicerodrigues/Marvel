@@ -1,4 +1,7 @@
 package com.example.marvel.network
 
-class Marvel {
-}
+data class Marvel (
+    val name: String,
+    val description: String,
+    val UrlImage: String
+)
