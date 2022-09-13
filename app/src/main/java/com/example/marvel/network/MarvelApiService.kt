@@ -20,8 +20,8 @@ private val retrofit = Retrofit.Builder()
 
 class MarvelApiService {
     interface MarvelApiService {
-        @GET(":443/v1/public/characters/200/comics?format=comic&formatType=comic&noVariants=true&dateDescriptor=thisMonth&apikey=f9280878de62b54189a58267e86eb58c")
-        fun getMarvel(): List<Marvel>
+        @GET("443/v1/public/characters/1009165/stories?apikey=f9280878de62b54189a58267e86eb58c") // informando que é uma solicitação get com o @GET
+        fun getMarvel(): List<Marvel> // recebe strings de resposta do web service
     }
     object MarvelApi {
         val retrofitService: MarvelApiService by lazy { // inicialização lenta
