@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/nav_graph.xml">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/marvelListFragment">
+    <fragment
+        android:id="@+id/marvelListFragment"
+        android:name="com.example.marvel.ui.MarvelListFragment"
+        android:label="MarvelListFragment" >
+        <action
+            android:id="@+id/action_FragmentMarvelListBinding_to_marvelDetailFragment"
+            app:destination="@id/marvelDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marvelDetailFragment"
+        android:name="com.example.marvel.ui.MarvelDetailFragment"
+        android:label="fragment_marvel_detail"
+        tools:layout="@layout/fragment_marvel_detail" />
 
 </navigation>

@@ -5,13 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="hero"
-            type="com.example.marvel.BindingAdaptersKt"
-            />
+            name="marvel"
+            type="com.example.marvel.network.Marvel" />
         <variable
             name="clickListener"
-            type="com.example.marvel.BindingAdaptersKt"
-            />
+            type="com.example.marvel.ui.MarvelListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -19,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:onClick="@{() -> clickListener.onClick(marvel)}"
         app:cardElevation="4dp"
         app:cardCornerRadius="4dp">
 
@@ -31,10 +30,10 @@
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp"
-            android:text="hero"
+            android:text="@{marvel.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Avangers" />
+            tools:text="Avengers" />
 
     </com.google.android.material.card.MaterialCardView>
 

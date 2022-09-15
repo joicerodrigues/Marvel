@@ -11,6 +11,9 @@ import com.example.marvel.network.MarvelApiService
 enum class MarvelApiStatus {LOADING, ERROR, DONE}
 
 class MarvelViewModel : ViewModel() {
+//
+//    private val _photos = MutableLiveData<Marvel>()
+//    val photos: LiveData<Marvel> = _photos
 
 
     private val _status = MutableLiveData<MarvelApiStatus>() // MutableLiveData interno que armazena o status da solicitação mais recente
