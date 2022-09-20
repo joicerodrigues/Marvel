@@ -2,24 +2,17 @@ package com.example.marvel.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.marvel.R
 import com.example.marvel.databinding.ListViewItemBinding
 import com.example.marvel.network.Marvel
 
 class MarvelListAdapter(val clickListener: MarvelListener) :
     ListAdapter<Marvel, MarvelListAdapter.MarvelViewHolder>(DiffCallback) {
 
-    class MarvelViewHolder(
-        var binding: ListViewItemBinding
-    ) : RecyclerView.ViewHolder(binding.root){
-        fun bind(clickListener: MarvelListener, marvel: Marvel) {
-            binding.marvel = marvel
-            binding.clickListener = clickListener
-            binding.executePendingBindings()
-        }
-    }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Marvel>() {
 
@@ -28,7 +21,7 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
         }
 
         override fun areContentsTheSame(oldItem: Marvel, newItem: Marvel): Boolean {
-            return oldItem.id == newItem.id && oldItem.description == newItem.description
+            return oldItem.description == newItem.description && oldItem.thumbnail == newItem.thumbnail
         }
 
 
@@ -45,6 +38,17 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
         val marvel = getItem(position)
         holder.bind(clickListener, marvel)
     }
+
+    class MarvelViewHolder(
+        var binding: ListViewItemBinding
+    ) : RecyclerView.ViewHolder(binding.root){
+        fun bind(clickListener: MarvelListener, marvel: Marvel) {
+            binding.marvel = marvel
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
+        }
+    }
+
 }
 
 class MarvelListener(val clickListener: (marvel: Marvel) -> Unit) {

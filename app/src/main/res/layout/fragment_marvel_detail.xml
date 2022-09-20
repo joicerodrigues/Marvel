@@ -28,6 +28,26 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Hero"/>
 
+<!--       <ImageView-->
+<!--            android:id="@+id/thumb"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="170dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="82dp"-->
+<!--            android:layout_marginTop="46dp"-->
+<!--            android:layout_marginEnd="82dp"-->
+<!--            android:layout_marginBottom="381dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:contentDescription="@string/app_name"-->
+<!--            android:padding="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/description"-->
+<!--            app:listData="@{viewModel.marvel.thumbnail}"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:src="@tools:sample/backgrounds/scenic" />-->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -49,35 +69,8 @@
             app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="Hero name"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="?attr/dividerHorizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"/>
 
-     <!--   <ImageView
-            android:id="@+id/thumb"
-            android:layout_width="wrap_content"
-            android:layout_height="170dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="561dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:padding="8dp"
-            android:scaleType="fitXY"
-            app:listData="@{viewModel.marvels}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/name"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints"
-            tools:src="@tools:sample/backgrounds/scenic" />
--->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
