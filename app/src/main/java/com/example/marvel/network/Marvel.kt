@@ -10,7 +10,6 @@ data class Marvel (
 )
 
 data class Thumbnail(
-//    val acess: MarvelListResponse,
     val path: String,
     val extension: String,
     val img: String = "$path.$extension"

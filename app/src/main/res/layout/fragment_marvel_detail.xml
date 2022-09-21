@@ -7,6 +7,9 @@
 
     <data>
         <variable
+            name="marvel"
+            type="com.example.marvel.network.Marvel" />
+        <variable
             name="viewModel"
             type="com.example.marvel.ui.MarvelViewModel" />
     </data>
@@ -28,35 +31,14 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Hero"/>
 
-<!--       <ImageView-->
-<!--            android:id="@+id/thumb"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="170dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginStart="82dp"-->
-<!--            android:layout_marginTop="46dp"-->
-<!--            android:layout_marginEnd="82dp"-->
-<!--            android:layout_marginBottom="381dp"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            android:contentDescription="@string/app_name"-->
-<!--            android:padding="8dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/description"-->
-<!--            app:listData="@{viewModel.marvel.thumbnail}"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            tools:src="@tools:sample/backgrounds/scenic" />-->
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:background="?attr/dividerHorizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"/>
-
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
         <TextView
             android:text="@{viewModel.marvel.description}"
@@ -67,9 +49,21 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="Hero name"/>
+            tools:text="Hero description"/>
 
-
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="347dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginBottom="554dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/description"-->
+<!--            app:srcCompat="?attr/actionModeShareDrawable"-->
+<!--            android:onClick="share"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

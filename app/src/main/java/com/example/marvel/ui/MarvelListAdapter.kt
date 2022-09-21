@@ -15,7 +15,6 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
 
 
     companion object DiffCallback : DiffUtil.ItemCallback<Marvel>() {
-
         override fun areItemsTheSame(oldItem: Marvel, newItem: Marvel): Boolean {
             return oldItem.name == newItem.name
         }
@@ -23,8 +22,6 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
         override fun areContentsTheSame(oldItem: Marvel, newItem: Marvel): Boolean {
             return oldItem.description == newItem.description && oldItem.thumbnail == newItem.thumbnail
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarvelViewHolder {
@@ -39,9 +36,12 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
         holder.bind(clickListener, marvel)
     }
 
+
+
+
     class MarvelViewHolder(
         var binding: ListViewItemBinding
-    ) : RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(clickListener: MarvelListener, marvel: Marvel) {
             binding.marvel = marvel
             binding.clickListener = clickListener
