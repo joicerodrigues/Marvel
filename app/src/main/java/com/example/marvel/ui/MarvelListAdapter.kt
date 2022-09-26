@@ -2,24 +2,22 @@ package com.example.marvel.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.marvel.R
 import com.example.marvel.databinding.ListViewItemBinding
-import com.example.marvel.network.Marvel
+import com.example.marvel.network.MarvelCharacters
 
 class MarvelListAdapter(val clickListener: MarvelListener) :
-    ListAdapter<Marvel, MarvelListAdapter.MarvelViewHolder>(DiffCallback) {
+    ListAdapter<MarvelCharacters, MarvelListAdapter.MarvelViewHolder>(DiffCallback) {
 
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Marvel>() {
-        override fun areItemsTheSame(oldItem: Marvel, newItem: Marvel): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MarvelCharacters>() {
+        override fun areItemsTheSame(oldItem: MarvelCharacters, newItem: MarvelCharacters): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: Marvel, newItem: Marvel): Boolean {
+        override fun areContentsTheSame(oldItem: MarvelCharacters, newItem: MarvelCharacters): Boolean {
             return oldItem.description == newItem.description && oldItem.thumbnail == newItem.thumbnail
         }
     }
@@ -42,8 +40,8 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
     class MarvelViewHolder(
         var binding: ListViewItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(clickListener: MarvelListener, marvel: Marvel) {
-            binding.marvel = marvel
+        fun bind(clickListener: MarvelListener, marvel: MarvelCharacters) {
+            binding.marvelCharacters = marvel
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -51,6 +49,6 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
 
 }
 
-class MarvelListener(val clickListener: (marvel: Marvel) -> Unit) {
-    fun onClick(marvel: Marvel) = clickListener(marvel)
+class MarvelListener(val clickListener: (marvel: MarvelCharacters) -> Unit) {
+    fun onClick(marvel: MarvelCharacters) = clickListener(marvel)
 }

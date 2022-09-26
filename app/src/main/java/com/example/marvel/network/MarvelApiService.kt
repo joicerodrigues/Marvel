@@ -1,5 +1,6 @@
 package com.example.marvel.network
 
+import com.example.marvel.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -28,7 +29,7 @@ private val retrofit = Retrofit.Builder()
 
 class MarvelApiService {
     interface MarvelApiService {
-        @GET("v1/public/characters?ts=1&apikey=f9280878de62b54189a58267e86eb58c&hash=bb2241fb22f0b97384027288832ec8f0") // informando que é uma solicitação get com o @GET
+        @GET("v1/public/characters?ts=1&apikey=${BuildConfig.MARVEL_SECRET}") // informando que é uma solicitação get com o @GET
        suspend fun getMarvel(): MarvelListResponse // recebe strings de resposta do web service
     }
     object MarvelApi {

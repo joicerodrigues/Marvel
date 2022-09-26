@@ -3,7 +3,7 @@ package com.example.marvel.network
 import android.util.Log.i
 import com.squareup.moshi.Json
 
-data class Marvel (
+data class MarvelCharacters (
     @Json(name = "name") val name: String,
     @Json(name = "description") val description: String,
     @Json(name = "thumbnail")  val thumbnail: Thumbnail
@@ -20,5 +20,5 @@ data class MarvelListResponse(
 )
 
 data class MarvelResults(
-    val results: List<Marvel>
+    val results: List<MarvelCharacters>
 )

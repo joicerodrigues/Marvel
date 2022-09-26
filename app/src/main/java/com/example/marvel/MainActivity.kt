@@ -1,14 +1,12 @@
 package com.example.marvel
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,23 +18,20 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        swipeRefreshLayout = findViewById(R.id.swipe)
-        textView = findViewById(R.id.textView)
-        swipeRefreshLayout.setOnRefreshListener {
-            number++
-            textView.text = " Total number = $number"
-            Handler().postDelayed(Runnable {
-                swipeRefreshLayout.isRefreshing = false
-            }, 4000)
-        }
+//        var sendMarvel: Button = findViewById(R.id.sendButton)
+//        sendMarvel.setOnClickListener {
+//            shareHero()
+//        }
 
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun share(view: View){
+
+    fun refreshApp(){
 
     }
 }

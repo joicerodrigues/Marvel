@@ -7,7 +7,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.marvel.network.Marvel
+import com.example.marvel.network.MarvelCharacters
 import com.example.marvel.ui.MarvelApiStatus
 import com.example.marvel.ui.MarvelListAdapter
 
@@ -26,7 +26,7 @@ fun bindImage(
 }
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Marvel>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarvelCharacters>?) {
     val adapter = recyclerView.adapter as MarvelListAdapter
     adapter.submitList(data)
 }
@@ -44,6 +44,10 @@ fun bindStatus(statusImageView: ImageView, status: MarvelApiStatus?) {
         MarvelApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_connection_error)
+        }
+        MarvelApiStatus.DISCONECT ->{
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_baseline_error_24)
         }
     }
 }

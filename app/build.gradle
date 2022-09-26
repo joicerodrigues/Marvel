@@ -17,12 +17,18 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'MARVEL_SECRET', '\"f9280878de62b54189a58267e86eb58c&hash=bb2241fb22f0b97384027288832ec8f0\"'
+
     }
 
     buildTypes {
+        debug{
+            buildConfigField 'String', 'MARVEL_SECRET', '\"f9280878de62b54189a58267e86eb58c&hash=bb2241fb22f0b97384027288832ec8f0\"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'MARVEL_SECRET', '\"f9280878de62b54189a58267e86eb58c&hash=bb2241fb22f0b97384027288832ec8f0\"'
         }
     }
     buildFeatures {
@@ -71,9 +77,14 @@ dependencies {
     implementation "io.coil-kt:coil:1.1.1"
     implementation 'androidx.leanback:leanback:1.0.0'
 
-
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
 
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    // Swipe to refresh - update the page
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    // card - list
+    implementation("androidx.cardview:cardview:1.0.0")
 }

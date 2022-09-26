@@ -1,15 +1,18 @@
 package com.example.marvel.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.marvel.R
 import com.example.marvel.databinding.FragmentMarvelDetailBinding
 
 
-class MarvelDetailFragment : Fragment(){
+class MarvelDetailFragment : Fragment() {
 
     private val viewModel: MarvelViewModel by activityViewModels()
 
@@ -18,20 +21,32 @@ class MarvelDetailFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-//        val imageView = findViewById<ImageView>(R.id.imageView)
-
-//        imageView.load("https://www.example.com/image.jpg") {
-//            crossfade(true)
-//            placeholder(R.drawable.image)
-//            transformations(CircleCropTransformation())
-//        }
-
-
         val binding = FragmentMarvelDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+
+        var sendMarvel: Button = binding.root.findViewById(
+            R.id.sendButton
+        )
+        sendMarvel.setOnClickListener {
+            shareHero()
+        }
+
         return binding.root
+
+    }
+
+    private fun shareHero(): Boolean {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "test: ")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+        return true
     }
 
 }
