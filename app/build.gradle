@@ -87,4 +87,9 @@ dependencies {
 
     // card - list
     implementation("androidx.cardview:cardview:1.0.0")
+
+    //espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+
 }

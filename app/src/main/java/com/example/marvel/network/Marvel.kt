@@ -1,6 +1,5 @@
 package com.example.marvel.network
 
-import android.util.Log.i
 import com.squareup.moshi.Json
 
 data class MarvelCharacters (

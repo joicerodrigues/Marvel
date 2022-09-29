@@ -35,8 +35,6 @@ class MarvelListAdapter(val clickListener: MarvelListener) :
     }
 
 
-
-
     class MarvelViewHolder(
         var binding: ListViewItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {

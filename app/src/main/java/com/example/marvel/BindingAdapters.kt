@@ -41,11 +41,11 @@ fun bindStatus(statusImageView: ImageView, status: MarvelApiStatus?) {
         MarvelApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
-        MarvelApiStatus.ERROR -> {
+        MarvelApiStatus.NETWORK_ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
-        MarvelApiStatus.DISCONECT ->{
+        MarvelApiStatus.API_ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_baseline_error_24)
         }

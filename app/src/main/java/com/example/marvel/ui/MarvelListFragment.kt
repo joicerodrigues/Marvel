@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentMarvelListBinding
 
@@ -27,8 +28,17 @@ class MarvelListFragment : Fragment() {
             findNavController()
                 .navigate(R.id.action_FragmentMarvelListBinding_to_marvelDetailFragment)
         })
+        val refreshLayout: SwipeRefreshLayout = binding.root.findViewById(
+            R.id.SwipeRefresh
+        )
+        refreshLayout.setOnRefreshListener {
+            refreshLayout.isRefreshing = false
+            viewModel.getMarvelList()
+            // SwipeRefreshLayout.isRefreshing = false   // reset the SwipeRefreshLayout
+        }
 
         // Inflate the layout for this fragment
         return binding.root
     }
+
 }
