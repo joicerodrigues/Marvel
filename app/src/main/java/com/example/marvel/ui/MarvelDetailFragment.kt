@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentMarvelDetailBinding
 
+class MarvelDetailFragment(val marvelDetailFragmentFactory: (() -> ViewModelProvider.Factory)? = null) : Fragment() {
 
-class MarvelDetailFragment : Fragment() {
-
-    private val viewModel: MarvelViewModel by activityViewModels()
+   private val viewModel: MarvelViewModel by activityViewModels(factoryProducer =  marvelDetailFragmentFactory)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

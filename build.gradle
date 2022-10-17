@@ -1,13 +1,14 @@
 buildscript {
-    ext.appcompat_version = "1.3.0"
+    ext.appcompat_version = "1.5.1"
     ext.constraint_version = "2.0.4"
     ext.espresso = "3.3.0"
+    ext.test_version = "1.4.0"
     ext.junit_test = "1.1.2"
-    ext.kotlin_version = "1.5.0"
+    ext.kotlin_version = "1.7.10"
     ext.legacy = "1.0.0"
     ext.material_version = "1.3.0"
     ext.moshi = "1.9.3"
-    ext.nav_version = "2.3.3"
+    ext.nav_version = "2.5.2"
     ext.retrofit = "2.9.0"
     repositories {
         google()
@@ -15,7 +16,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath "com.android.tools.build:gradle:4.1.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }

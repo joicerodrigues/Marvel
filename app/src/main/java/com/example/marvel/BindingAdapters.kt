@@ -49,5 +49,9 @@ fun bindStatus(statusImageView: ImageView, status: MarvelApiStatus?) {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_baseline_error_24)
         }
+        else ->{
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.loading_animation)
+        }
     }
 }

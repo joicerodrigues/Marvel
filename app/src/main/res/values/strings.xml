@@ -2,7 +2,6 @@
     <string name="app_name">Marvel</string>
     <string name="share">Share</string>
     <string name="send_for_your_friend">Send for your friend</string>
-    <string name="order_details">Name: %1$s \n Description: %2$ \n Picture: %3$ \n :D</string>
     <string name="detail_title">More</string>
     <string name="marvel_list_title">The Marvel</string>
     <string name="send">Send for a friend</string>

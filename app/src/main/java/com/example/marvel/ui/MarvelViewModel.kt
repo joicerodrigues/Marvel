@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.marvel.databinding.FragmentMarvelDetailBinding
 import com.example.marvel.network.MarvelApiService
 import com.example.marvel.network.MarvelCharacters
 import kotlinx.coroutines.launch
