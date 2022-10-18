@@ -13,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.marvel.ui.MarvelListAdapter
 import com.example.marvel.ui.MarvelListFragment
+import io.mockk.verify
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -87,6 +88,17 @@ class MarvelListFragmentTest : BaseTest() {
         onView(withId(R.id.recycler_view)).perform(swipeDown())
         Thread.sleep(2000)
 
+    }
+
+    @Test
+    fun swipeRefresh(){
+        Thread.sleep(2000)
+        onView(withId(R.id.SwipeRefresh)).perform(swipeDown())
+        Thread.sleep(2000)
+        onView(withId(R.id.recycler_view))
+            .check(matches(atPositionOnView(R.id.marvel_name, 0, withText("3-D Man"))))
+            .check(matches((isDisplayed())))
+        Thread.sleep(2000)
     }
 
 //    @Test

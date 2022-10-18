@@ -86,7 +86,7 @@ class MarvelDetailFragmentTest() : BaseTest() {
     @Test
     fun shareButtonTestIntent(){
         // GIVEN
-        val intent: Intent = Intent().apply {
+        val intent: Intent = Intent().apply { //criando intent que faz a ação de compartilhar os dados
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, description)
             putExtra(Intent.EXTRA_TITLE, name)
