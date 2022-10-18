@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentMarvelDetailBinding
@@ -42,6 +43,7 @@ class MarvelDetailFragment(val marvelDetailFragmentFactory: (() -> ViewModelProv
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, "test: ")
             type = "text/plain"
+
         }
 
         val shareIntent = Intent.createChooser(sendIntent, null)

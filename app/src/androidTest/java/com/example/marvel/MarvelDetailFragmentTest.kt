@@ -1,25 +1,16 @@
 package com.example.marvel
 
-import android.app.Activity
-import android.app.Instrumentation
 import android.content.Intent
 import androidx.fragment.app.FragmentFactory
-import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.ViewModelProvider
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.*
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.marvel.network.MarvelCharacters
@@ -30,17 +21,13 @@ import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.CoreMatchers.containsString
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.koin.test.KoinTest
 
 
-class MarvelDetailFragmentTest() : KoinTest {
+class MarvelDetailFragmentTest() : BaseTest() {
 
     private val fragmentFactoryMock : FragmentFactory = mockk()
 
-    @get:Rule
-    val intentsTestRule = (MainActivity::class.java)
 
     @Before
     fun setup() {
@@ -68,7 +55,7 @@ class MarvelDetailFragmentTest() : KoinTest {
         )
         Thread.sleep(2000)
         //executa o clique
-        Espresso.onView(ViewMatchers.withId(R.id.sendButton)).perform(ViewActions.click())
+        onView(withId(R.id.sendButton)).perform(click())
     }
 
     @Test
@@ -79,8 +66,8 @@ class MarvelDetailFragmentTest() : KoinTest {
         )
         Thread.sleep(2000)
         //confere descrição do elemento
-        Espresso.onView(ViewMatchers.withId(R.id.description))
-            .check(ViewAssertions.matches(ViewMatchers.withText("joão está correndo")))
+        onView(withId(R.id.description))
+            .check(matches(withText("joão está correndo")))
         Thread.sleep(2000)
     }
 
@@ -96,13 +83,32 @@ class MarvelDetailFragmentTest() : KoinTest {
     }
 
     @Test
-    fun shareButton(){
-        val resultData = Intent()
-        val textShare = "test "
-        val result = Instrumentation.ActivityResult(Activity.RESULT_OK, resultData)
+    fun shareButtonTestIntent(){
+        // GIVEN
+        val intent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "test: ")
+            type = "text/plain"
+        }
 
-        intending(toPackage("com.android.contacts")).respondWith(result)
+        Intents.init()
+        intending(hasAction(Intent.ACTION_SEND)).respondWith(mockk()) // mockando intent
+
+        // WHEN
+        launchFragmentInContainer<MarvelDetailFragment>(
+            themeResId =  R.style.Theme_Marvel,
+            factory = fragmentFactoryMock
+        ) // iniciando fragment
+
+        Thread.sleep(2000)
+        // THEN
+        onView(withId(R.id.sendButton)).perform(click()) // perfomando um click
+        Thread.sleep(2000)
+        intended(hasAction(Intent.ACTION_CHOOSER))
+         intended(hasExtra(matchesString(Intent.EXTRA_INTENT), matchesIntent(intent)))
     }
+
+
 }
 
 

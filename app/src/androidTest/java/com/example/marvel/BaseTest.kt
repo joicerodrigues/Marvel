@@ -1,5 +1,6 @@
 package com.example.marvel
 
+import android.content.Intent
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.util.TreeIterables
+import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import java.lang.Exception
@@ -82,6 +84,35 @@ open class BaseTest {
                 val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
                 val targetView = viewHolder?.itemView?.findViewById<View>(idRes)
                 return itemMatcher.matches(targetView)
+            }
+        }
+    }
+
+    fun matchesString(expected: String) = object : BaseMatcher<String>() {
+        override fun describeTo(description: Description?) {
+            description?.appendText("Check if string matches")
+        }
+
+        override fun matches(actual: Any?): Boolean {
+            return expected == actual
+        }
+    }
+
+    fun matchesIntent(expected: Intent) = object : BaseMatcher<Intent>() {
+        override fun describeTo(description: Description?) {
+            description?.appendText("Check if Intent matches")
+        }
+
+        override fun matches(actual: Any?): Boolean {
+            with(actual as Intent) {
+                return action.equals(expected.action) &&
+                        type.equals(expected.type) &&
+                        getStringExtra(
+                            Intent.EXTRA_TEXT
+                        ).equals(expected.getStringExtra(Intent.EXTRA_TEXT)) &&
+                        getStringExtra(
+                            Intent.EXTRA_TITLE
+                        ).equals(expected.getStringExtra(Intent.EXTRA_TITLE))
             }
         }
     }
