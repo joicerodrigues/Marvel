@@ -27,7 +27,8 @@ import org.junit.Test
 class MarvelDetailFragmentTest() : BaseTest() {
 
     private val fragmentFactoryMock : FragmentFactory = mockk()
-
+    val name: String = "joão"
+    val description: String = "joão está correndo"
 
     @Before
     fun setup() {
@@ -87,7 +88,8 @@ class MarvelDetailFragmentTest() : BaseTest() {
         // GIVEN
         val intent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "test: ")
+            putExtra(Intent.EXTRA_TEXT, description)
+            putExtra(Intent.EXTRA_TITLE, name)
             type = "text/plain"
         }
 
