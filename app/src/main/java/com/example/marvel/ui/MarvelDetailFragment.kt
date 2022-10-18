@@ -41,7 +41,8 @@ class MarvelDetailFragment(val marvelDetailFragmentFactory: (() -> ViewModelProv
     private fun shareHero(): Boolean {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "test: ")
+            putExtra(Intent.EXTRA_TEXT, viewModel.marvel.value?.description)
+            putExtra(Intent.EXTRA_TITLE, viewModel.marvel.value?.name)
             type = "text/plain"
 
         }
