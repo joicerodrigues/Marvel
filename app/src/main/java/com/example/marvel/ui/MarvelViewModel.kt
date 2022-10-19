@@ -1,9 +1,8 @@
 package com.example.marvel.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.*
 import com.example.marvel.databinding.FragmentMarvelDetailBinding
 import com.example.marvel.network.MarvelApiService
 import com.example.marvel.network.MarvelCharacters

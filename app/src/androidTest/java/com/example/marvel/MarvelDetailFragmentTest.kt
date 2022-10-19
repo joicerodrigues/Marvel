@@ -27,8 +27,8 @@ import org.junit.Test
 class MarvelDetailFragmentTest() : BaseTest() {
 
     private val fragmentFactoryMock : FragmentFactory = mockk()
-    val name: String = "joão"
-    val description: String = "joão está correndo"
+    private val name: String = "joão"
+    private val description: String = "joão está correndo"
 
     @Before
     fun setup() {

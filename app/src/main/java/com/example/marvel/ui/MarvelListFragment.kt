@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.marvel.R
@@ -13,6 +14,7 @@ import com.example.marvel.databinding.FragmentMarvelListBinding
 
 
 class MarvelListFragment : Fragment() {
+
     private val viewModel: MarvelViewModel by activityViewModels()
 
     override fun onCreateView(

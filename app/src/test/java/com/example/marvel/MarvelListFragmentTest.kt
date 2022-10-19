@@ -1,13 +1,16 @@
 package com.example.marvel
 
 import android.content.Context
-import com.example.marvel.ui.MarvelListFragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.marvel.ui.MarvelViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.junit.Rule
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -16,16 +19,12 @@ import org.mockito.Mockito.`when`
  */
 
 class MarvelListFragment {
-    @Mock
     private lateinit var mockContext: Context
+
 
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
 
-    @Test
-    fun marvelList() {
-
-    }
 }

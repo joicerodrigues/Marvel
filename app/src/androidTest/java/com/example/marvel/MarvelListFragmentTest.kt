@@ -13,6 +13,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.marvel.ui.MarvelListAdapter
 import com.example.marvel.ui.MarvelListFragment
+import com.example.marvel.ui.MarvelViewModel
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Assert.*
 import org.junit.Before
@@ -28,17 +30,29 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class) // dizendo que irá executar esta classe e indicando que a mesma é uma classe de teste
 class MarvelListFragmentTest : BaseTest() {
 
-//    @get:Rule
-//    val intentsTestRule = IntentsTestRule(MainActivity::class.java)
-
-
     // Create a TestNavHostController
-    val navController = TestNavHostController(
+    private val navController = TestNavHostController(
         ApplicationProvider.getApplicationContext()
     )
+    private val viewModel: MarvelViewModel = mockk(relaxed = true)
 
     @Before
     fun setup() {
+        // mockando fragment
+//
+
+//        val viewModelFactoryMock : ViewModelProvider.Factory = mockk()
+//
+//        every{
+//            viewModel.marvel.value
+//        }    returns MarvelCharacters("joão",
+//            "joão está correndo",
+//            thumbnail = Thumbnail("http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784", "jpg")
+//        )
+//
+//        every { viewModelFactoryMock.create(MarvelViewModel::class.java, any()) } answers {viewModel}
+
+
         // Create a graphical FragmentScenario for the TitleScreen
         val marvelListFragmentScenario =
             launchFragmentInContainer<MarvelListFragment>(themeResId = R.style.Theme_Marvel)
@@ -82,11 +96,28 @@ class MarvelListFragmentTest : BaseTest() {
 
     @Test
     fun swipeScroll(){
+//        Thread.sleep(2000)
+//        launchFragmentInContainer<MarvelListFragment>(
+//            themeResId =  R.style.Theme_Marvel,
+//            factory = fragmentFactoryMock
+//        )
         Thread.sleep(2000)
-        onView(withId(R.id.recycler_view)).perform(swipeUp())
+        waitForView(withId(R.id.recycler_view))
+            .perform(swipeUp()) // swipe up
+        waitForView(withId(R.id.recycler_view))
+            .check(matches(atPositionOnView(R.id.marvel_name, 3, withText("Aaron Stack"))))
+            .check(matches((isDisplayed()))) // verifica o item
+
+        waitForView(withId(R.id.recycler_view))
+            .perform(swipeDown()) // swipe down
+        waitForView(withId(R.id.recycler_view))
+            .check(matches(atPositionOnView(R.id.marvel_name, 0, withText("3-D Man"))))
+            .check(matches((isDisplayed())))// verifica o item
         Thread.sleep(2000)
-        onView(withId(R.id.recycler_view)).perform(swipeDown())
-        Thread.sleep(2000)
+
+        verify(exactly = 2) {
+            viewModel.getMarvelList()
+        }
 
     }
 
@@ -100,18 +131,6 @@ class MarvelListFragmentTest : BaseTest() {
             .check(matches((isDisplayed())))
         Thread.sleep(2000)
     }
-
-//    @Test
-//    fun Intents(){
-//        val resultData = Intent()
-//        val detailTitle = "3-D Man"
-//        val result = Instrumentation.ActivityResult(Activity.RESULT_OK, resultData)
-//        Thread.sleep(2000)
-//        onView(withId(R.id.card)).perform(click())
-//        Thread.sleep(2000)
-//        onView(withId(R.id.marvel_name)).check(matches(withText(detailTitle)))
-//
-//    }
 }
 
 
