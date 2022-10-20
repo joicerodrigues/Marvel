@@ -16,6 +16,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.marvel.network.MarvelCharacters
 import com.example.marvel.network.Thumbnail
 import com.example.marvel.ui.MarvelDetailFragment
+import com.example.marvel.ui.MarvelListFragment
 import com.example.marvel.ui.MarvelViewModel
 import io.mockk.every
 import io.mockk.mockk
@@ -26,7 +27,7 @@ import org.junit.Test
 
 class MarvelDetailFragmentTest() : BaseTest() {
 
-    private val fragmentFactoryMock : FragmentFactory = mockk()
+    private val fragmentFactoryMock: FragmentFactory = mockk()
     private val name: String = "joão"
     private val description: String = "joão está correndo"
 
@@ -34,24 +35,36 @@ class MarvelDetailFragmentTest() : BaseTest() {
     fun setup() {
         val viewModel: MarvelViewModel = mockk(relaxed = true)
 
-        val viewModelFactoryMock : ViewModelProvider.Factory = mockk()
+        val viewModelFactoryMock: ViewModelProvider.Factory = mockk()
 
-        every{
+        every {
             viewModel.marvel.value
-        }    returns MarvelCharacters("joão",
+        } returns MarvelCharacters(
+            "joão",
             "joão está correndo",
-            thumbnail = Thumbnail("http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784", "jpg"))
+            thumbnail = Thumbnail(
+                "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784",
+                "jpg"
+            )
+        )
 
-        every { viewModelFactoryMock.create(MarvelViewModel::class.java, any()) } answers {viewModel}
-        every {fragmentFactoryMock.instantiate(any(), any())} answers {MarvelDetailFragment{
-            viewModelFactoryMock
-        }}
+        every {
+            viewModelFactoryMock.create(
+                MarvelViewModel::class.java,
+                any()
+            )
+        } answers { viewModel }
+        every { fragmentFactoryMock.instantiate(any(), any()) } answers {
+            MarvelDetailFragment {
+                viewModelFactoryMock
+            }
         }
+    }
 
     @Test
     fun checkClick() {
         launchFragmentInContainer<MarvelDetailFragment>(
-            themeResId =  R.style.Theme_Marvel,
+            themeResId = R.style.Theme_Marvel,
             factory = fragmentFactoryMock
         )
         Thread.sleep(2000)
@@ -62,7 +75,7 @@ class MarvelDetailFragmentTest() : BaseTest() {
     @Test
     fun checkDescription() {
         launchFragmentInContainer<MarvelDetailFragment>(
-            themeResId =  R.style.Theme_Marvel,
+            themeResId = R.style.Theme_Marvel,
             factory = fragmentFactoryMock
         )
         Thread.sleep(2000)
@@ -73,9 +86,9 @@ class MarvelDetailFragmentTest() : BaseTest() {
     }
 
     @Test
-    fun checkTextBtn(){
+    fun checkTextBtn() {
         launchFragmentInContainer<MarvelDetailFragment>(
-            themeResId =  R.style.Theme_Marvel,
+            themeResId = R.style.Theme_Marvel,
             factory = fragmentFactoryMock
         )
         Thread.sleep(2000)
@@ -84,21 +97,22 @@ class MarvelDetailFragmentTest() : BaseTest() {
     }
 
     @Test
-    fun shareButtonTestIntent(){
+    fun shareButtonTestIntent() {
         // GIVEN
-        val intent: Intent = Intent().apply { //criando intent que faz a ação de compartilhar os dados
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, description)
-            putExtra(Intent.EXTRA_TITLE, name)
-            type = "text/plain"
-        }
+        val intent: Intent =
+            Intent().apply { //criando intent que faz a ação de compartilhar os dados
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, description)
+                putExtra(Intent.EXTRA_TITLE, name)
+                type = "text/plain"
+            }
 
         Intents.init()
         intending(hasAction(Intent.ACTION_SEND)).respondWith(mockk()) // mockando intent
 
         // WHEN
         launchFragmentInContainer<MarvelDetailFragment>(
-            themeResId =  R.style.Theme_Marvel,
+            themeResId = R.style.Theme_Marvel,
             factory = fragmentFactoryMock
         ) // iniciando fragment
 
@@ -107,7 +121,7 @@ class MarvelDetailFragmentTest() : BaseTest() {
         onView(withId(R.id.sendButton)).perform(click()) // perfomando um click
         Thread.sleep(2000)
         intended(hasAction(Intent.ACTION_CHOOSER))
-         intended(hasExtra(matchesString(Intent.EXTRA_INTENT), matchesIntent(intent)))
+        intended(hasExtra(matchesString(Intent.EXTRA_INTENT), matchesIntent(intent)))
     }
 
 

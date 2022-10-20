@@ -1,7 +1,7 @@
 package com.example.marvel
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -11,15 +11,20 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.marvel.network.MarvelCharacters
+import com.example.marvel.network.MarvelListResponse
+import com.example.marvel.network.MarvelResults
+import com.example.marvel.network.Thumbnail
 import com.example.marvel.ui.MarvelListAdapter
 import com.example.marvel.ui.MarvelListFragment
 import com.example.marvel.ui.MarvelViewModel
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.dsl.module
 
 
 /**
@@ -34,35 +39,50 @@ class MarvelListFragmentTest : BaseTest() {
     private val navController = TestNavHostController(
         ApplicationProvider.getApplicationContext()
     )
-    private val viewModel: MarvelViewModel = mockk(relaxed = true)
+
+    private val viewModel: MarvelViewModel = spyk()
+
+    private val instrumentedTestModule = module {
+        factory<MarvelListFragment> { MarvelListFragment() }
+    }
+
+    @get:Rule
+    val koinTestRule = KoinTestRule(
+        modules = listOf(productionModule, instrumentedTestModule)
+    )
 
     @Before
     fun setup() {
         // mockando fragment
-//
 
-//        val viewModelFactoryMock : ViewModelProvider.Factory = mockk()
-//
-//        every{
-//            viewModel.marvel.value
-//        }    returns MarvelCharacters("joão",
-//            "joão está correndo",
-//            thumbnail = Thumbnail("http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784", "jpg")
-//        )
-//
-//        every { viewModelFactoryMock.create(MarvelViewModel::class.java, any()) } answers {viewModel}
+        coEvery {
+            viewModel.marvelApiService.getMarvel()
+        } returns MarvelListResponse(
+            MarvelResults(
+                listOf(
+                    MarvelCharacters(
+                        "joão",
+                        "joão está correndo",
+                        thumbnail = Thumbnail(
+                            "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784",
+                            "jpg"
+                        )
+                    )
+                )
+            )
+        )
 
+    }
 
-        // Create a graphical FragmentScenario for the TitleScreen
-        val marvelListFragmentScenario =
-            launchFragmentInContainer<MarvelListFragment>(themeResId = R.style.Theme_Marvel)
-
-        marvelListFragmentScenario.onFragment { fragment ->
-            // Set the graph on the TestNavHostController
-            navController.setGraph(R.navigation.nav_graph)
-            // Make the NavController available via the findNavController() APIs
-            Navigation.setViewNavController(fragment.requireView(), navController)
+    fun launchFragment() {
+        launchFragmentInContainer<MarvelListFragment> {
+            spyk<MarvelListFragment>().also {
+                every {
+                    this.
+                } returns viewModel
+            }
         }
+
     }
 
     @Test
@@ -95,12 +115,8 @@ class MarvelListFragmentTest : BaseTest() {
     }
 
     @Test
-    fun swipeScroll(){
-//        Thread.sleep(2000)
-//        launchFragmentInContainer<MarvelListFragment>(
-//            themeResId =  R.style.Theme_Marvel,
-//            factory = fragmentFactoryMock
-//        )
+    fun swipeScroll() {
+
         Thread.sleep(2000)
         waitForView(withId(R.id.recycler_view))
             .perform(swipeUp()) // swipe up
@@ -115,14 +131,14 @@ class MarvelListFragmentTest : BaseTest() {
             .check(matches((isDisplayed())))// verifica o item
         Thread.sleep(2000)
 
-        verify(exactly = 2) {
+        verify(exactly = 1) {
             viewModel.getMarvelList()
         }
 
     }
 
     @Test
-    fun swipeRefresh(){
+    fun swipeRefresh() {
         Thread.sleep(2000)
         onView(withId(R.id.SwipeRefresh)).perform(swipeDown())
         Thread.sleep(2000)

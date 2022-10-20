@@ -1,5 +1,6 @@
 package com.example.marvel.ui
 
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.*
@@ -17,8 +18,8 @@ class MarvelViewModel : ViewModel() {
 
     private val _status =
         MutableLiveData<MarvelApiStatus>() // MutableLiveData interno que armazena o status da solicitação mais recente
-    val status: LiveData<MarvelApiStatus> =
-        _status // LiveData externo imutável para o status da solicitação
+    val status = MarvelApiStatus.DONE
+      //  _status // LiveData externo imutável para o status da solicitação
 
     private val _marvel = MutableLiveData<MarvelCharacters>()
     val marvel: LiveData<MarvelCharacters> = _marvel
@@ -31,11 +32,14 @@ class MarvelViewModel : ViewModel() {
         getMarvelList()
     }
 
+    @VisibleForTesting
+    val marvelApiService = MarvelApiService.MarvelApi.retrofitService
+
     fun getMarvelList() {
         viewModelScope.launch {
             _status.value = MarvelApiStatus.LOADING
             try {
-                _marvels.value = MarvelApiService.MarvelApi.retrofitService.getMarvel().data.results
+                _marvels.value = marvelApiService.getMarvel().data.results
                 _status.value = MarvelApiStatus.DONE
             } catch (e: Exception) {
                 if (e is ConnectException || e is UnknownHostException) {

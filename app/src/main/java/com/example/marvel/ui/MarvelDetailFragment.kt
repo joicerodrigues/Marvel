@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentMarvelDetailBinding
 
-class MarvelDetailFragment(val marvelDetailFragmentFactory: (() -> ViewModelProvider.Factory)? = null) : Fragment() {
+class MarvelDetailFragment(private val marvelDetailFragmentFactory: (() -> ViewModelProvider.Factory)? = null) : Fragment() {
 
    private val viewModel: MarvelViewModel by activityViewModels(factoryProducer =  marvelDetailFragmentFactory)
 
