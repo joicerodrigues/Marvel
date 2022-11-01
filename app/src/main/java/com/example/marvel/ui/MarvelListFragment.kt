@@ -13,11 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.marvel.R
 import com.example.marvel.databinding.FragmentMarvelListBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class MarvelListFragment : Fragment() {
 
-    @VisibleForTesting
-    val viewModel: MarvelViewModel by activityViewModels()
+    //@VisibleForTesting
+   private val viewModel: MarvelViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -4,17 +4,16 @@ import android.content.Intent
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.espresso.*
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.util.TreeIterables
 import org.hamcrest.BaseMatcher
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import java.lang.Exception
+
 
 open class BaseTest {
 
@@ -73,7 +72,7 @@ open class BaseTest {
     fun atPositionOnView(
         @IdRes idRes: Int,
         position: Int,
-        itemMatcher: Matcher<View?>
+        itemMatcher: Matcher<View>
     ): Matcher<View?>? {
         return object : BoundedMatcher<View?, RecyclerView>(RecyclerView::class.java) {
             override fun describeTo(description: Description) {
@@ -113,6 +112,22 @@ open class BaseTest {
                         getStringExtra(
                             Intent.EXTRA_TITLE
                         ).equals(expected.getStringExtra(Intent.EXTRA_TITLE))
+            }
+        }
+    }
+
+    fun withCustomConstraints(action: ViewAction, constraints: Matcher<View>): ViewAction? {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return constraints
+            }
+
+            override fun getDescription(): String {
+                return action.description
+            }
+
+            override fun perform(uiController: UiController?, view: View?) {
+                action.perform(uiController, view)
             }
         }
     }

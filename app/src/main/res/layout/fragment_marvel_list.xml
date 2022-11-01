@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -30,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:listData="@{viewModel.marvels}"
-                tools:listitem="@layout/list_view_item" />
+                tools:listitem="@layout/list_view_item"/>
 
             <ImageView
                 android:id="@+id/status_image"

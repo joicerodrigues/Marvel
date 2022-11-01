@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.marvel.TestRunner"
         buildConfigField 'String', 'MARVEL_SECRET', '\"f9280878de62b54189a58267e86eb58c&hash=bb2241fb22f0b97384027288832ec8f0\"'
 
     }
@@ -92,14 +92,23 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
 
-    //mock
+    //mockK
     androidTestImplementation "io.mockk:mockk-android:1.12.2"
+
+    // mockk test unit
+    testImplementation "io.mockk:mockk:1.12.2"
+
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+
 
     // fragment teste
     debugImplementation "androidx.fragment:fragment-testing:1.5.3"
 
+
     // koin teste
-    implementation("io.insert-koin:koin-test-junit4:3.0.1")
+    androidTestImplementation("io.insert-koin:koin-test-junit4:3.0.1")
+
+    implementation"io.insert-koin:koin-android:$koin_android_version"
 
     // espresso - intents
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
@@ -109,4 +118,11 @@ dependencies {
 
     // teste corrotinas
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
+    // Required -- JUnit 4 framework
+    testImplementation 'junit:junit:4.13.2'
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.4.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.19.0'
 }
